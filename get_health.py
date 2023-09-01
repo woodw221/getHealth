@@ -29,8 +29,6 @@ def getHealth(hRequest):
         return('DOWN')  
 
 def calcUpStats(success, total):
-    if total == 0:
-        return 0
     perc = 100 * (success/total)
     return perc
 
@@ -55,14 +53,16 @@ if os.path.exists(user_input):
 
     
     try:
+        print('Please hit Ctrl + C when you wish to end status checks')
         while True:
 
             for x in result:
                 status = getHealth(x)
+                y = x['name'].split(' ', 1)[0]
                 if status == 'UP':
-                    successCnt[x['name'].split(' ', 1)[0]] += 1
+                    successCnt[y] += 1
         
-                checkCount[x['name'].split(' ', 1)[0]] += 1
+                checkCount[y] += 1
 
             time.sleep(15)
     except KeyboardInterrupt:
